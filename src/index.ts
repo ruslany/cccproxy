@@ -73,6 +73,7 @@ async function main() {
 
   Bun.serve({
     port,
+    hostname: "127.0.0.1", // Bind to localhost only for security
     fetch: app.fetch,
   });
 
