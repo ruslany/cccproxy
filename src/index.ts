@@ -1,4 +1,6 @@
+#!/usr/bin/env node
 import { parseArgs } from "util";
+import { serve } from "@hono/node-server";
 
 import { setupGitHubToken, setupCopilotToken } from "./auth/token";
 import { state } from "./state";
@@ -6,7 +8,7 @@ import app from "./server";
 
 // Parse command line arguments
 const { values } = parseArgs({
-  args: Bun.argv.slice(2),
+  args: process.argv.slice(2),
   options: {
     port: {
       type: "string",
@@ -34,7 +36,7 @@ if (values.help) {
   console.log(`
 Copilot API Proxy (minimal) - Claude Code backend using GitHub Copilot
 
-Usage: bun run src/index.ts [options]
+Usage: npx cccproxy [options]
 
 Options:
   -p, --port <port>           Port to listen on (default: 4141)
@@ -71,10 +73,10 @@ async function main() {
   console.log(`Server starting on port ${port}...`);
   console.log(`Anthropic API endpoint: http://localhost:${port}/v1/messages`);
 
-  Bun.serve({
+  serve({
+    fetch: app.fetch,
     port,
     hostname: "127.0.0.1", // Bind to localhost only for security
-    fetch: app.fetch,
   });
 
   console.log(`

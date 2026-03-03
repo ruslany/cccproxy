@@ -50,7 +50,7 @@ export async function pollAccessToken(
     );
 
     if (!response.ok) {
-      await Bun.sleep(sleepDuration);
+      await new Promise((resolve) => setTimeout(resolve, sleepDuration));
       continue;
     }
 
@@ -60,6 +60,6 @@ export async function pollAccessToken(
       return json.access_token;
     }
 
-    await Bun.sleep(sleepDuration);
+    await new Promise((resolve) => setTimeout(resolve, sleepDuration));
   }
 }

@@ -1,17 +1,30 @@
 {
-  "name": "copilot-api-minimal",
+  "name": "claude-code-copilot-proxy",
   "version": "1.0.0",
   "type": "module",
+  "bin": {
+    "cccproxy": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "start": "bun run src/index.ts",
-    "dev": "bun run --watch src/index.ts"
+    "build": "tsup src/index.ts --format esm --target node18 --clean",
+    "prepublishOnly": "npm run build",
+    "start": "node dist/index.js",
+    "dev": "tsup src/index.ts --format esm --target node18 --watch"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "dependencies": {
-    "hono": "^4.7.0",
-    "fetch-event-stream": "^0.1.5"
+    "@hono/node-server": "^1.19.9",
+    "fetch-event-stream": "^0.1.5",
+    "hono": "^4.7.0"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.0",
+    "@types/node": "^25.3.3",
+    "tsup": "^8.5.1",
     "typescript": "^5.7.0"
   }
 }
