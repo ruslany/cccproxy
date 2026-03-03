@@ -194,7 +194,9 @@ function mapContent(
   return parts;
 }
 
-function translateTools(tools: AnthropicMessagesPayload["tools"]): Tool[] | undefined {
+function translateTools(
+  tools: AnthropicMessagesPayload["tools"]
+): Tool[] | undefined {
   if (!tools) return undefined;
   return tools.map((tool) => ({
     type: "function",
@@ -261,8 +263,10 @@ export function translateToAnthropic(
         (response.usage?.prompt_tokens ?? 0) -
         (response.usage?.prompt_tokens_details?.cached_tokens ?? 0),
       output_tokens: response.usage?.completion_tokens ?? 0,
-      ...(response.usage?.prompt_tokens_details?.cached_tokens !== undefined && {
-        cache_read_input_tokens: response.usage.prompt_tokens_details.cached_tokens,
+      ...(response.usage?.prompt_tokens_details?.cached_tokens !==
+        undefined && {
+        cache_read_input_tokens:
+          response.usage.prompt_tokens_details.cached_tokens,
       }),
     },
   };
@@ -275,7 +279,9 @@ function getTextBlocks(content: string | null): AnthropicTextBlock[] {
   return [];
 }
 
-function getToolUseBlocks(toolCalls: ToolCall[] | undefined): AnthropicToolUseBlock[] {
+function getToolUseBlocks(
+  toolCalls: ToolCall[] | undefined
+): AnthropicToolUseBlock[] {
   if (!toolCalls) return [];
   return toolCalls.map((tc) => ({
     type: "tool_use",

@@ -19,7 +19,9 @@ export async function handleMessages(c: Context) {
 
   // Non-streaming response
   if ("choices" in response) {
-    const anthropicResponse = translateToAnthropic(response as ChatCompletionResponse);
+    const anthropicResponse = translateToAnthropic(
+      response as ChatCompletionResponse
+    );
     return c.json(anthropicResponse);
   }
 

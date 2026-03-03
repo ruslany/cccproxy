@@ -87,12 +87,7 @@ export interface AnthropicResponse {
   role: "assistant";
   content: AnthropicAssistantContentBlock[];
   model: string;
-  stop_reason:
-    | "end_turn"
-    | "max_tokens"
-    | "stop_sequence"
-    | "tool_use"
-    | null;
+  stop_reason: "end_turn" | "max_tokens" | "stop_sequence" | "tool_use" | null;
   stop_sequence: string | null;
   usage: {
     input_tokens: number;
@@ -116,10 +111,44 @@ export interface AnthropicStreamState {
 }
 
 export type AnthropicStreamEvent =
-  | { type: "message_start"; message: Omit<AnthropicResponse, "content" | "stop_reason" | "stop_sequence"> & { content: []; stop_reason: null; stop_sequence: null } }
-  | { type: "content_block_start"; index: number; content_block: { type: "text"; text: string } | { type: "tool_use"; id: string; name: string; input: Record<string, unknown> } }
-  | { type: "content_block_delta"; index: number; delta: { type: "text_delta"; text: string } | { type: "input_json_delta"; partial_json: string } }
+  | {
+      type: "message_start";
+      message: Omit<
+        AnthropicResponse,
+        "content" | "stop_reason" | "stop_sequence"
+      > & { content: []; stop_reason: null; stop_sequence: null };
+    }
+  | {
+      type: "content_block_start";
+      index: number;
+      content_block:
+        | { type: "text"; text: string }
+        | {
+            type: "tool_use";
+            id: string;
+            name: string;
+            input: Record<string, unknown>;
+          };
+    }
+  | {
+      type: "content_block_delta";
+      index: number;
+      delta:
+        | { type: "text_delta"; text: string }
+        | { type: "input_json_delta"; partial_json: string };
+    }
   | { type: "content_block_stop"; index: number }
-  | { type: "message_delta"; delta: { stop_reason?: AnthropicResponse["stop_reason"]; stop_sequence?: string | null }; usage?: { input_tokens?: number; output_tokens: number; cache_read_input_tokens?: number } }
+  | {
+      type: "message_delta";
+      delta: {
+        stop_reason?: AnthropicResponse["stop_reason"];
+        stop_sequence?: string | null;
+      };
+      usage?: {
+        input_tokens?: number;
+        output_tokens: number;
+        cache_read_input_tokens?: number;
+      };
+    }
   | { type: "message_stop" }
   | { type: "error"; error: { type: string; message: string } };

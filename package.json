@@ -14,7 +14,9 @@
     "start": "node dist/index.js",
     "dev": "tsup src/index.ts --format esm --target node18 --watch",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix"
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -28,6 +30,8 @@
     "@eslint/js": "^10.0.1",
     "@types/node": "^25.3.3",
     "eslint": "^10.0.2",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.1",
     "tsup": "^8.5.1",
     "typescript": "^5.7.0",
     "typescript-eslint": "^8.56.1"

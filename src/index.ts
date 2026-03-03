@@ -48,7 +48,10 @@ Options:
 }
 
 const port = parseInt(values.port!, 10);
-const accountType = values["account-type"] as "individual" | "business" | "enterprise";
+const accountType = values["account-type"] as
+  | "individual"
+  | "business"
+  | "enterprise";
 
 async function main() {
   console.log("Starting Copilot API Proxy (minimal)...");
