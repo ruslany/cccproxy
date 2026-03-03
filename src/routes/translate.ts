@@ -4,7 +4,6 @@ import type {
   ContentPart,
   Message,
   Tool,
-  TextPart,
   ToolCall,
 } from "../api/chat";
 

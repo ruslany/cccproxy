@@ -12,7 +12,9 @@
     "build": "tsup src/index.ts --format esm --target node18 --clean",
     "prepublishOnly": "npm run build",
     "start": "node dist/index.js",
-    "dev": "tsup src/index.ts --format esm --target node18 --watch"
+    "dev": "tsup src/index.ts --format esm --target node18 --watch",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -23,8 +25,11 @@
     "hono": "^4.7.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^25.3.3",
+    "eslint": "^10.0.2",
     "tsup": "^8.5.1",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.56.1"
   }
 }
