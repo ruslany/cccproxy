@@ -25,6 +25,6 @@ app.use(
 app.post("/v1/messages", handleMessages);
 
 // Health check
-app.get("/health", (c) => c.json({ status: "ok" }));
+app.get("/", (c) => c.json({ status: "ok" }));
 
 export default app;
