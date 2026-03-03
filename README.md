@@ -10,7 +10,7 @@ A minimal proxy server that allows [Claude Code](https://docs.anthropic.com/en/d
 ## Installation
 
 ```bash
-npm install -g claude-code-copilot-proxy
+npm install -g cccproxy
 ```
 
 Or run directly with npx:
